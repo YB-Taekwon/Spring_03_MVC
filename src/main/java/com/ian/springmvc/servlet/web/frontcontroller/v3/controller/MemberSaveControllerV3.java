@@ -4,6 +4,7 @@ package com.ian.springmvc.servlet.web.frontcontroller.v3.controller;
 import com.ian.springmvc.servlet.domain.member.Member;
 import com.ian.springmvc.servlet.domain.member.MemberRepository;
 import com.ian.springmvc.servlet.web.frontcontroller.ModelView;
+import com.ian.springmvc.servlet.web.frontcontroller.v3.ControllerV3;
 
 import java.util.Map;
 

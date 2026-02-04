@@ -12,4 +12,17 @@ public class SpringMvcApplication {
         SpringApplication.run(SpringMvcApplication.class, args);
     }
 
+    // application.properties에 작성한 ViewResolver와 동일한 동작 -> Spring Boot가 아래의 빈 등록을 대신 해줌
+//    @Bean
+//    ViewResolver internalResourceViewResolver() {
+//        return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
+//    }
+
+    /**
+     * 스프링 부트 뷰 리졸버
+     * 1. BeanNameViewResolver: 빈 이름으로 뷰를 찾아서 반환
+     * 2. InternalResourceViewResolver: JSP를 처리할 수 있는 뷰 반환 v
+     * <p>
+     * - InternalResourceViewResolver: 말 그대로 JSP와 같이 내부에서 자원이 이동하는 경우 사용
+     */
 }

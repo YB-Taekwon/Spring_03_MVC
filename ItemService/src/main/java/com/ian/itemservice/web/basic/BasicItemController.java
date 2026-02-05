@@ -38,55 +38,67 @@ public class BasicItemController {
         return "basic/addForm";
     }
 
-    @PostMapping("/add-v1")
-    public String addItemV1(
-            @RequestParam String name, @RequestParam int price,
-            @RequestParam int quantity, Model model
-    ) {
-        Item item = new Item();
-        item.setName(name);
-        item.setPrice(price);
-        item.setQuantity(quantity);
-
-        itemRepository.save(item);
-
-        model.addAttribute("item", item);
-
-        return "basic/item";
-    }
-
-    @PostMapping("/add-v2")
-    public String addItemV2(@ModelAttribute(name = "item") Item item, Model model) {
-        itemRepository.save(item);
-
-        model.addAttribute("item", item);
-
-        return "basic/item";
-    }
+//    @PostMapping("/add-v1")
+//    public String addItemV1(
+//            @RequestParam String name, @RequestParam int price,
+//            @RequestParam int quantity, Model model
+//    ) {
+//        Item item = new Item();
+//        item.setName(name);
+//        item.setPrice(price);
+//        item.setQuantity(quantity);
+//
+//        itemRepository.save(item);
+//
+//        model.addAttribute("item", item);
+//
+//        return "basic/item";
+//    }
+//
+//    @PostMapping("/add-v2")
+//    public String addItemV2(@ModelAttribute(name = "item") Item item, Model model) {
+//        itemRepository.save(item);
+//
+//        model.addAttribute("item", item);
+//
+//        return "basic/item";
+//    }
+//
+//    /**
+//     * @ModelAttribute - 요청 파라미터 처리: 객체를 생성하고 요청 파라미터의 값을 프로퍼티 접근법(Setter)으로 입력
+//     * - Model 추가: ModelAttribute로 지정한 객체를 Model에 자동으로 저장
+//     */
+//    @PostMapping("/add-v3")
+//    public String addItemV3(@ModelAttribute(name = "item") Item item) {
+//        itemRepository.save(item);
+//
+//        return "basic/item";
+//    }
+//
+//    @PostMapping("/add-v4")
+//    public String addItemV4(@ModelAttribute Item item) {
+//        itemRepository.save(item);
+//
+//        return "basic/item";
+//    }
+//
+//    @PostMapping("/add")
+//    public String addItem(Item item) {
+//        itemRepository.save(item);
+//
+//        return "basic/item";
+//    }
 
     /**
-     * @ModelAttribute - 요청 파라미터 처리: 객체를 생성하고 요청 파라미터의 값을 프로퍼티 접근법(Setter)으로 입력
-     * - Model 추가: ModelAttribute로 지정한 객체를 Model에 자동으로 저장
+     * PRG (Post-Redirect-Get) 패턴 적용
+     * POST 요청 처리 후 바로 화면을 반환할 경우, 새로고침 시 동일한 POST 요청이 중복으로 처리될 수 있음
+     * 이를 방지하기 위해 POST의 반환을 Redirect로 다른 url로 보낸 후 해당 url에서 GET으로 다시 조회하는 방식으로 화면을 보여줌
      */
-    @PostMapping("/add-v3")
-    public String addItemV3(@ModelAttribute(name = "item") Item item) {
-        itemRepository.save(item);
-
-        return "basic/item";
-    }
-
-    @PostMapping("/add-v4")
-    public String addItemV4(@ModelAttribute Item item) {
-        itemRepository.save(item);
-
-        return "basic/item";
-    }
-
     @PostMapping("/add")
     public String addItem(Item item) {
         itemRepository.save(item);
 
-        return "basic/item";
+        return "redirect:/basic/items/" + item.getId();
     }
 
     @GetMapping("/{itemId}/edit")
